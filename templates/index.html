@@ -3,7 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-	<title>No Blog</title>
+    <title>No Blog - gygzyz.com</title>
+    <meta name="keywords" content="IT技术，一起讨论IT的发展">
+    <meta name="description" content="No Blog，为技术人员提供最专业的IT交流平台。">
 	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/dict/common.css">
 </head>
@@ -26,17 +28,16 @@
         </div>
 
     <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right hidden-sm hidden-lg hidden-md">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
-              <ul class="dropdown-menu">
-                <li><a class="btn" data-toggle="modal" data-target="#loginModal">登录</a></li>
-                <li class="divider"></li>
-                <li><a class="btn"  data-toggle="modal" data-target="#registerModal">注册</a></li>
+              <ul class="dropdown-menu fade in">
+                <li><a data-toggle="modal" data-target="#loginModal">登录</a></li>
+                <!--<li class="divider"></li>-->
+                <li><a data-toggle="modal" data-target="#registerModal">注册</a></li>
               </ul>
             </li>
         </ul>
-
 
         <form class="navbar-form form-inline pull-left hidden-xs">
             <div class="form-group">
@@ -48,12 +49,22 @@
                         </div>
                 </div>
             </div>
-
         </form>
+
         <ul class="nav navbar-nav">
             <li><a href="#"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-tower"></span> 话题</a></li>
         </ul>
+<!--        <ul class="nav navbar-nav hidden-sm hidden-lg hidden-md">
+            <li><a href="#">登录</a></li>
+            <li><a href="#">注册</a></li>
+        </ul>-->
+
+
+        <ol class="nav-right navbar-nav pull-right hidden-xs">
+            <li><a href="#">登录</a></li>
+            <li><a href="#">注册</a></li>
+        </ol>
 
     </div>
   </div>
@@ -73,7 +84,7 @@
 
             <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="new">
+                    <div role="tabpanel" class="tab-pane fade in active" id="new">
 
                         <div class="item">
                             <a class="item-img" href="#">
@@ -90,7 +101,7 @@
                         </div>
                         <div class="item">
                             <a class="item-img" href="#">
-                                <img class="img-rounded" src="../static/img/ubuntu.png" alt="">
+                                <img class="img-rounded" src="../static/img/shell.jpg" style="border: 1px solid" alt="">
                             </a>
 
                             <div class="item-content">
@@ -150,7 +161,7 @@
 
 
 
-                    <div role="tabpanel" class="tab-pane" id="hot">
+                    <div role="tabpanel" class="tab-pane fade" id="hot">
                         hot
                     </div>
                   </div>
@@ -166,7 +177,7 @@
 </div>
 
 <footer>
-    By: <a href="https://github.com/sugare">Sugare</a>
+    By: <a href="https://github.com/sugare" target="_blank">Sugare</a>
     <br>
     Mail: 30733705@qq.com
 </footer>
