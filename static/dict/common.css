@@ -2,27 +2,62 @@
 
 /*global*/
 html{height: 100%;}
-body{margin: 0;height: 100%;font-size:14px; line-height:160%;color: #666;background-color: #eeeeee}
+/*body{margin: 0;height: 100%;font-size:14px; line-height:160%;color: #666;background-color: #eeeeee}*/
+body{margin: 0;height: 100%;font-size:14px; line-height:160%;color: #666;background-image: url("/static/img/bg.jpg")}
 body, input, button, select, textarea, h1, h2, h3, h4, h5, h6{font-family:'Helvetica Neue', 'STHeiti', 'Microsoft YaHei', Helvetica,Arial,sans-serif;}
-ul, ol{margin:0;padding:0;list-style:none;}
-h1, h2, h3, h4, h5, h6{margin-top:0;font-size:100%;line-height: 1.7;}
+ul, ol, li{margin:0;padding:0;list-style:none;}
+h1, h2, h3, h4, h5, h6{margin-top:0;line-height: 1.7;}
 a{cursor: pointer;outline: none;text-decoration: none}
 a:hover{text-decoration: none;}
 a:focus{text-decoration: none;outline: none !important;}
-/*end global*/
+.error {color: red;}
+.hide {display: none}
+/*endGlobal*/
 
 
+/*reWangEditor*/
+.wangEditor-container {
+    border-radius: 8px;
+    min-width: 836px;
+    margin-left: -12px;
+    border: 1px solid #ccc
+}
+
+.wangEditor-menu-container {
+    border-radius: 8px;
+}
+/*endReWang*/
+
+/*reBootstrap*/
+.modal-title {
+    text-align: center
+}
+
+.icon-bar {
+    background-color: #fff;
+}
+
+.panel-heading {
+    background-color: #f0f0f0
+}
+
+.navbar-brand {
+    padding-top: 2px;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+/*endReBootstrap*/
 
 /*header*/
 header{
     position:relative;
     width:100%;
     min-height:50px;
-    background-color:#499ef3;
-}
-
-.navbar-brand {
-    padding-top: 2px;
+    /*background-color:#499ef3;*/
+    background-color:#000;
 }
 
 #navbar > form input:focus {
@@ -38,45 +73,69 @@ header{
     background: #4dabff;
     color: #fff;
 }
+
 #navbar ol > li > a{
     padding: 0;
     line-height: 50px;
     margin: 0 4px;
 }
+
 #navbar ol > li > a:hover{
     color: #fff;
 }
+
 #search {
     width: 300px;
 }
-
 
 #navbar .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
     background-color: #4dabff;
     border-color: #337ab7;
 }
-
 /*end header*/
 
 
 
-/*nb-main leftbar*/
 .nb-main {
  margin-top: 30px;
-
 }
-#left-bar {
+
+/*article*/
+.article-content .title {
+    border-bottom: 1px solid #eee;
+    margin: 30px 0 15px 0;
+    text-align: center;
+}
+
+.article-content .title p {
+    margin-top: 15px;
+}
+
+.article-comment .comment {
+    padding-bottom: 50px;
+    border-bottom: 3px solid #f0ad4e;
+}
+
+.index-left-bar, .article-body, .article-comment {
     background-color: #fff;
     padding: 20px;
     border-right: 1px solid #e6e6e6;
-    -moz-border-radius-topleft: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+/*endArticle*/
+
+
+
+/*index*/
+#index-add-article1 a:hover, #index-add-article1 a:active,
+#index-add-article2 a:hover, #index-add-article2 a:active {
+    background-color: #1e88e5;
 }
 
-.nav-tabs {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
+.index-about {
+    height: 500px;
+    background-color: #fcfcfc
 }
 
 .item {
@@ -86,11 +145,20 @@ header{
     padding: 14px 0 14px 60px;
     border-bottom: 1px solid #f3f3f3;
 }
+
 .item .item-author {
     color: #000000;
 }
-.item .item-img{position: absolute;left: 0;}
-.item .item-img img{width: 50px;height: 50px;}
+
+.item .item-img{
+    position: absolute;
+    left: 0;
+}
+
+.item .item-img img, .editor-img {
+    width: 50px;
+    height: 50px;
+}
 
 .item .item-content h4 {
     margin: 0 0 3px;
@@ -109,12 +177,13 @@ header{
     font-weight: normal;
     color: #999;
 }
+/*endIndex*/
 
-
-
-/*rightbar*/
-/*end rightbar*/
-
+/*editor*/
+.editor-show-cata-img {
+    margin-bottom: 20px;
+}
+/*endEditor*/
 
 /*footer*/
 footer {
@@ -129,13 +198,16 @@ footer {
     padding: 20px 0;
     margin-top: 20px;
 }
+
 footer a {
     color: #fff;
 }
+
 footer a:hover {
     color: #fff;
     font-weight: bold;
 }
+/*endFooter*/
 
 /*响应式*/
 /* 超小屏幕（平板，大于等于 320px） */

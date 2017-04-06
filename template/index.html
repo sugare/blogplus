@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="index-left-bar col-sm-12 col-md-9">
+        <div>
+            <ul class="nav nav-tabs" role="tablist" style="background-color: #f0f0f0">
+                <li role="presentation" class="active"><a href="#about" data-toggle="tab">关于小组</a></li>
+                {% for type in type_list %}
+                <li role="presentation"><a href="#tpye{{ type.nid }}" data-toggle="tab">{{ type.name}}</a></li>
+                {% end %}
+
+                {% if current_user %}
+                <li class="pull-right" id="index-add-article1">
+                    <a href="/editor" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span> 发布文章
+                    </a>
+                </li>
+                {% else %}
+                <li class="pull-right" id="index-add-article2">
+                    <a data-toggle="modal" data-target="#loginModal" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span> 发布文章
+                    </a>
+                </li>
+                {% end %}
+            </ul>
+
+        <!-- Tab panes -->
+            <div class="tab-content" style="min-height: 650px;">
+            {% for type in type_list %}
+                <div role="tabpanel" class="tab-pane fade in" id="tpye{{ type.nid }}">
+                {% for art in type.art %}
+                    {% if art.status == 1 %}
+                    <div class="item">
+                        <a class="item-img" href="/articles/{{ art.nid }}">
+                            <img class="img-thumbnail img-responsive" src="/static/cataimg/{{ art.cataimg }}" alt="">
+                        </a>
+
+                        <div class="item-content">
+                            <h4><a href="/articles/{{ art.nid }}">{{ art.title }}</a></h4>
+                            <p>
+                                <a href="#" class="item-author">{{ art.user.username }}</a>
+                                <span>发表了文章 • {{ len(art.com) }} 次评论 • 75 次点赞 • {{ art.ctime }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    {% end %}
+                {% end %}
+                </div>
+            {% end %}
+
+                <div role="tabpanel" class="tab-pane fade in active" id="about">
+                    <div class="index-about">hot</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="rigtht-bar" class="hidden-xs hidden-sm col-md-3">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="glyphicon glyphicon-flag"></span>
+                    IT 新闻
+                    <span class="glyphicon glyphicon-remove btn panel-close pull-right"></span>
+                    <span class="glyphicon btn panel-collapse pull-right glyphicon-chevron-up" data-toggle="collapse" data-target="#news-list" aria-expanded="true"></span>
+                </h3>
+            </div>
+            <ul id="news-list" class="list-group collapse in" aria-expanded="true">
+                {% for i in scrapy_51_data %}
+                <li class="list-group-item">
+                    <span class="hotest-post-title"><a href="{{ i.url }}" target="_blank">{{ i.title }}</a> </span>
+                </li>
+                {% end %}
+            </ul>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="glyphicon glyphicon-bullhorn"></span>
+                    今日头条
+                    <span class="glyphicon glyphicon-remove btn panel-close pull-right"></span>
+                    <span class="glyphicon btn panel-collapse pull-right glyphicon-chevron-up" data-toggle="collapse" data-target="#offer-list" aria-expanded="true"></span>
+                </h3>
+            </div>
+            <ul id="offer-list" class="list-group collapse in" aria-expanded="true">
+                {% for i in scrapy_news_data %}
+                <li class="list-group-item">
+                    <span class="hotest-post-title"><a href="{{ i.url }}" target="_blank">{{ i.title }}</a> </span>
+                </li>
+                {% end %}
+            </ul>
+        </div>
+    </div>
+{% end %}

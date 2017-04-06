@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="background-color: #fff; border-radius: 5px; padding: 20px;">
+    {% for art in userinfo.art %}
+        <div class="item">
+            <a class="item-img" href="/articles/{{ art.nid }}">
+                <img class="img-thumbnail img-responsive" src="/static/cataimg/{{ art.cataimg }}" alt="">
+            </a>
+
+            <div class="item-content">
+                <h4><a href="/articles/{{ art.nid }}">{{ art.title }}</a></h4>
+                <p>
+                    <a href="/editor/{{ art.nid }}" class="item-author">编辑</a>
+                    {% if art.status == 0 %}
+                    <a href="/publish/n/{{ art.nid }}">立即发布</a>
+                    {% else %}
+                    <a href="/publish/y/{{ art.nid }}">取消发布</a>
+                    {% end %}
+                    <!--<span>发表了文章 • {{ len(art.com) }} 次评论 • 75 次点赞 • {{ art.ctime }}</span>-->
+                </p>
+            </div>
+        </div>
+    {% end %}
+</div>
+
+{% end %}

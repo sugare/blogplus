@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block css_list %}
+<link rel="stylesheet" href='{{ static_url("plugins/wangEditor/dist/css/wangEditor.min.css") }}'>
+<link rel="stylesheet" href='{{ static_url("dict/common.css") }}'>
+{% end %}
+
+{% block content %}
+
+    {% if art %}
+    <form action="/editor/{{art.nid}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="control-label"></label>
+            <div class="col-md-offset-1 col-md-10">
+                <input name="title" value="{{ art.title}}" type="text" class="form-control" placeholder="请输入文章标题" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label"></label>
+            <div class="col-md-offset-1 col-md-10">
+                <select class="form-control" name="type_id" id="type_id">
+                    <option value="{{ art.type_id }}" selected = "selected">{{ art.type.name }}</option>
+                    {% for i in type_list%}
+                    <option value="{{ i.nid }}">{{ i.name }}</option>
+                    {% end %}
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-md-offset-1 editor-show-cata-img">
+            <input type="radio" value="{{ art.cataimg }}" name="cataimg" checked="checked" class="hide">
+            {% for i in img_list %}
+            <input type="radio" value="{{ i }}" name="cataimg" class="hide">
+            <img class="img-thumbnail img-responsive editor-img" id="{{ i }}" src='/static/cataimg/{{ i }}' onclick="choiceCataImg(this.id)">
+            {% end %}
+        </div>
+
+        <div class="col-md-offset-1 col-md-10">
+            <textarea name="content" id="content" style="min-height: 500px;">
+                {{ art.content }}
+            </textarea>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <button class="col-md-offset-1 col-md-10 btn btn-success" type="submit">立即保存</button>
+    </form>
+    {% else %}
+    <form action="/editor" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="control-label"></label>
+            <div class="col-md-offset-1 col-md-10">
+                <input name="title" type="text" class="form-control" placeholder="请输入文章标题" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label"></label>
+            <div class="col-md-offset-1 col-md-10">
+                <select class="form-control" name="type_id" >
+                    {% for i in type_list%}
+                    <option value="{{ i.nid }}">{{ i.name }}</option>
+                    {% end %}
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-offset-1 editor-show-cata-img">
+                <input type="radio" value="linux.jpg" name="cataimg" checked="checked" class="hide">
+                {% for j in img_list %}
+                <input type="radio" value="{{ j }}" name="cataimg" class="hide">
+                <img class="img-thumbnail img-responsive editor-img" id="{{ j }}" src='/static/cataimg/{{ j }}' onclick="choiceCataImg(this.id)">
+                {% end %}
+        </div>
+
+        <div class="col-md-offset-1 col-md-10">
+            <textarea name="content" id="content" style="min-height: 800px;">
+                <p>请输入内容。。。</p>
+            </textarea>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <button class="col-md-offset-1 col-md-10 btn btn-success" type="submit">立即保存</button>
+    </form>
+    {% end %}
+{% end %}
+
+{% block js_list %}
+<script src='{{ static_url("plugins/wangEditor/dist/js/wangEditor.min.js") }}'></script>
+<script type="text/javascript">
+    var editor = new wangEditor('content');
+    editor.config.uploadImgUrl = '/fileload';
+    editor.config.uploadImgFileName = 'myFileName';
+    editor.config.menus = [
+        'source',
+        '|',
+        'bold',
+        'underline',
+        'italic',
+        'strikethrough',
+        'eraser',
+        'forecolor',
+        'bgcolor',
+        '|',
+        'quote',
+        'fontfamily',
+        'fontsize',
+        'head',
+        'unorderlist',
+        'orderlist',
+        'alignleft',
+        'aligncenter',
+        'alignright',
+        '|',
+        'link',
+        'unlink',
+        'table',
+        '|',
+        'img',
+        'insertcode',
+        '|',
+        'undo',
+        'redo',
+        'fullscreen'
+    ];
+
+    editor.create();
+
+</script>
+{% end %}
+

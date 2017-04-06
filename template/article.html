@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="article-body">
+            <ol class="breadcrumb">
+                <li><a href="/">
+                    <span class="glyphicon glyphicon-home"></span> 首页
+                </a></li>
+                <li><a>{{ article.type.name }}</a></li>
+                <li class="">
+                    <a href="#comment">
+                        <span class=" glyphicon glyphicon-comment"></span> {{ len(article.com) }}
+                    </a>
+                </li>
+            </ol>
+
+            <div class="article-content">
+                <div class="title">
+                    <a class="h2">{{ article.title }}</a>
+                    <p>Post: {{ article.ctime }} by: {{ article.user.username }}</p>
+                </div>
+
+                <p>{% raw article.content %}</p>
+
+            </div>
+        </div>
+
+        <br />
+
+        <div class="article-comment">
+            <a name="comment"></a>
+            <div class="comment">
+                {% if current_user %}
+                <form method="POST" action="/comment" user_info_id={{ current_user.nid }} reply_id="0" article_id='{{ article.nid }}'>
+                   <textarea name="comment" class="form-control" rows="4" placeholder="请输入评论 限200字!"></textarea>
+                    <button type="button" class="btn btn-default pull-right" onclick="replyComment(this);">提交</button>
+                </form>
+
+                {% else %}
+                <form method="POST" action="/comment" user_info_id='0' reply_id="0" article_id='{{ article.nid }}'>
+                    <textarea name="comment" class="form-control" rows="4" placeholder="请输入评论 限200字!"></textarea>
+                    <button type="button" class="btn btn-default pull-right" onclick="replyComment(this);">提交</button>
+                </form>
+
+                {% end %}
+            </div>
+            <li>
+                {% raw te %}
+
+            </li>
+        </div>
+    </div>
+{% end %}
