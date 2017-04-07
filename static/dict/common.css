@@ -159,6 +159,9 @@ header{
     width: 50px;
     height: 50px;
 }
+.editor-img {
+    margin: 5px 0;
+}
 
 .item .item-content h4 {
     margin: 0 0 3px;
@@ -182,6 +185,8 @@ header{
 /*editor*/
 .editor-show-cata-img {
     margin-bottom: 20px;
+    width: 838px;
+    text-align: center;
 }
 /*endEditor*/
 

@@ -7,5 +7,5 @@
 # @Software: PyCharm
 # session
 
-SESSION_TYPE = "cache"
+SESSION_TYPE = "redis"
 SESSION_EXPIRES = 200000

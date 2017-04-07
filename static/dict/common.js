@@ -65,6 +65,9 @@ function submitLogin() {
     $('.login-temp').each(function () {
         var input_val = $(this).val();
         var name_val = $(this).attr('name');
+	if (input_val == '') {
+	    alert(name_val + '不能为空');
+	}
         post_dict[name_val] = input_val;
     });
     $.ajax({
