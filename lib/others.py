@@ -59,7 +59,7 @@ TEMP = """
 
     <div class="item" style="margin:5px 0 0 %spx;">
         <a class="item-img" href="#">
-            <img class="img-circle" style="border:1px solid;" src="/static/cataimg/python.png" alt="">
+            <img class="img-circle" style="border:1px solid;" src="/static/img/tou.jpg" alt="">
         </a>
 
         <div class="item-content" style="margin: -4px 0 0 10px;">
