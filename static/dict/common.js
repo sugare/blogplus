@@ -84,11 +84,18 @@ function submitLogin() {
                 location.href = '/';
             } else {
                 $.each(arg.message, function (k,v) {
-                    var tag = document.createElement('span');
-                    tag.className = 'error glyphicon glyphicon-remove form-control-feedback';
-                    //tag.innerText = v;
 
-                    $("#"+ k + "").after(tag)
+                    if (k == 'warning') {
+                        alert(v);
+                        location.href = '/';
+                    } else {
+                        var tag = document.createElement('span');
+                        tag.className = 'error glyphicon glyphicon-remove form-control-feedback';
+                        //tag.innerText = v;
+
+                        $("#"+ k + "").after(tag)
+                    }
+
                 })
             }
         }

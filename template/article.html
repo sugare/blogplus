@@ -23,6 +23,22 @@
                 <p>{% raw article.content %}</p>
 
             </div>
+            <nav >
+                <ul class="pager">
+                    {% if article.nid == 1 %}
+                    <li class="previous disabled"><a><span aria-hidden="true">&larr;</span> Older</a></li>
+                    {% else %}
+                    <li class="previous"><a href="/articles/{{ article.nid - 1 }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+                    {% end %}
+
+                    {% if article.nid == last_pag.nid %}
+                    <li class="next disabled"><a>Newer <span aria-hidden="true">&rarr;</span></a></li>
+                    {% else %}
+                    <li class="next"><a href="/articles/{{ article.nid + 1 }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                    {% end %}
+
+                </ul>
+            </nav>
         </div>
 
         <br />
@@ -49,5 +65,7 @@
 
             </li>
         </div>
+
+
     </div>
 {% end %}

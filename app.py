@@ -130,25 +130,27 @@ class HomeHandler(BaseHandler):
 class EditorHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self, nid=None):
+
         user_obj = self.get_current_user()
+        if user_obj.status == 1:
+            type_list = self.conn.query(Type).all()
+            cata_img = os.path.join(os.path.dirname(__file__), 'static', 'cataimg')
+            img_list = os.listdir(cata_img)  # 列出文件夹下所有的目录与文件
 
-        type_list = self.conn.query(Type).all()
-        cata_img = os.path.join(os.path.dirname(__file__), 'static', 'cataimg')
-        img_list = os.listdir(cata_img)  # 列出文件夹下所有的目录与文件
+            art_list = []
+            for i in user_obj.art:
+                art_list.append(i.nid)
 
-        art_list = []
-        for i in user_obj.art:
-            art_list.append(i.nid)
-
-        if nid:
-            if int(nid) in art_list:
-                article = self.conn.query(Articles).filter(Articles.nid == int(nid)).first()
+            if nid:
+                if int(nid) in art_list:
+                    article = self.conn.query(Articles).filter(Articles.nid == int(nid)).first()
+                else:
+                    self.write_error(403)
             else:
-                self.write_error(403)
+                article = ''
+            self.render('editor.html', art=article, img_list=img_list, type_list=type_list)
         else:
-            article = ''
-        self.render('editor.html', art=article, img_list=img_list, type_list=type_list)
-
+            self.write_error(403)
     @tornado.web.authenticated
     def post(self, nid=None):
         form = ArticleForm()
@@ -255,15 +257,18 @@ class LoginHandler(BaseHandler):
             r = self.conn.query(UserInfo).filter(and_(or_(UserInfo.email == form._value_dict['login_username'], UserInfo.username == form._value_dict['login_username']),
                                                  UserInfo.password == hashlib.md5(password_r).hexdigest())).first()
             if form._value_dict['login_code'].upper() == self.session['CheckCode'].upper():
-                if r:
+
+                if r and r.status != 2:
                     rep.status = True
                     self.session['is_login'] = True
                     self.session['login_username'] = r.username
                 else:
                     if not self.conn.query(UserInfo).filter(UserInfo.username == form._value_dict['login_username']).first():
                         rep.message['login_username'] = '您输入的用户名有误!'
-                    elif not self.conn.query(UserInfo).filter(UserInfo.password == form._value_dict['login_password']).first():
+                    elif not self.conn.query(UserInfo).filter(UserInfo.password == hashlib.md5(password_r).hexdigest()).first():
                         rep.message['login_password'] = '您输入的密码有误!'
+                    elif r.status == 2:
+                        rep.message['warning'] = '您的账号已被封，如要解封，请联系管理员！'
                     else:
                         rep.message['login_username'] = '您输入的用户名有误!'
                         rep.message['login_password'] = '您输入的密码有误!'
@@ -286,6 +291,7 @@ class ArticleHandler(BaseHandler):
     def get(self, aid=None):
         if aid:
             art_id = int(aid)
+            last_pag = self.conn.query(Articles).order_by(Articles.nid.desc()).limit(1).first()
             article = self.conn.query(Articles).filter(Articles.nid == art_id).first()
             comment = self.conn.query(Comment).filter(Comment.article_id == art_id).all()
             comment_list = []
@@ -297,24 +303,12 @@ class ArticleHandler(BaseHandler):
                  a = (i.user.username, i.content, i.reply_id, str(user_info_id), i.ctime, i.nid, i.article_id)
                  comment_list.append(a)
             c = buildTree(comment_list)
-            self.render('article.html', article=article, te = commentTree(c))
+            self.render('article.html', article=article, te = commentTree(c), last_pag=last_pag)
         else:
             self.write_error(403)
 
 # 用户评论
 class CommentHandler(BaseHandler):
-    def get(self, *args, **kwargs):
-        article = self.conn.query(Articles).filter(Articles.nid == 1).first()
-        comment = self.conn.query(Comment).filter(Comment.article_id == 1).all()
-        comment_list = []
-        for i in comment:
-             a = (i.nid, i.content, i.reply_id, i.ctime, i.user.username,i.article_id, '1')
-             comment_list.append(a)
-
-        comment_tree = buildTree(comment_list)
-
-        self.render('comment.html', user='', article=article,te = commentTree(comment_tree))
-
     @tornado.web.authenticated
     def post(self, *args, **kwargs):
         rep = BaseResponse()

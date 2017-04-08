@@ -15,7 +15,7 @@ import datetime
 
 
 # connect to the database
-engine = create_engine('mysql+pymysql://root:woaini@521@127.0.0.1:3306/song?charset=utf8', pool_size=100)
+engine = create_engine('mysql+pymysql://root:123456@127.0.0.1:3306/song?charset=utf8', pool_size=100)
 
 # Base class
 Base = declarative_base()
@@ -30,7 +30,7 @@ class UserInfo(Base):
     email = Column(String(32))
     ctime = Column(DateTime, default=datetime.datetime.now())
 
-    status = Column(Integer, default=0)
+    status = Column(Integer, default=0)     # 0为游客可评论，不可发布，1为管理可发表，2为不可登陆
 
     __table_args__ = (
         Index('ix_user_pwd', 'username', 'password'),
@@ -118,3 +118,4 @@ if __name__ == '__main__':
     Base.metadata.create_all(engine)
     conn.add_all([a,b,c,d,e,f])
     conn.commit()
+
